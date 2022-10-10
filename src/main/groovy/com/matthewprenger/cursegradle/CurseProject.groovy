@@ -1,5 +1,7 @@
 package com.matthewprenger.cursegradle
 
+import org.gradle.api.Action
+
 import javax.annotation.Nullable
 
 import static com.matthewprenger.cursegradle.Util.check
@@ -58,7 +60,7 @@ class CurseProject {
     List<Object> gameVersionStrings = new ArrayList<>()
 
     @Nullable
-    Set<Closure<?>> curseRelations
+    Set<Action<CurseRelation>> curseRelations
 
     /**
      * Set the main artifact to upload
@@ -66,10 +68,10 @@ class CurseProject {
      * @param artifact The artifact
      * @param configClosure Optional configuration closure
      */
-    void mainArtifact(def artifact, @DelegatesTo(CurseArtifact)Closure<?> configClosure = null) {
+    void mainArtifact(def artifact, Action<CurseArtifact> configClosure = null) {
         CurseArtifact curseArtifact = new CurseArtifact()
         if (configClosure != null) {
-            curseArtifact.with(configClosure)
+            configClosure.execute(curseArtifact)
         }
         curseArtifact.artifact = artifact
         mainArtifact = curseArtifact
@@ -81,10 +83,10 @@ class CurseProject {
      * @param artifact The artifact
      * @param configClosure Optional configuration closure
      */
-    void addArtifact(def artifact, @DelegatesTo(CurseArtifact)Closure<?> configClosure = null) {
+    void addArtifact(def artifact, Action<CurseArtifact> configClosure = null) {
         CurseArtifact curseArtifact = new CurseArtifact()
         if (configClosure != null) {
-            curseArtifact.with(configClosure)
+            configClosure.execute(curseArtifact)
         }
         curseArtifact.artifact = artifact
         additionalArtifacts.add(curseArtifact)
@@ -104,7 +106,7 @@ class CurseProject {
      *
      * @param configureClosure The configuration closure
      */
-    void relations(@DelegatesTo(CurseRelation)Closure<?> configureClosure) {
+    void relations(Action<CurseRelation> configureClosure) {
         if (curseRelations == null) {
             curseRelations = new HashSet<>()
         }

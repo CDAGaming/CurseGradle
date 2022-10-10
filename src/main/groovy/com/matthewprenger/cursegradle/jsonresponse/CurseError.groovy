@@ -16,7 +16,7 @@ class CurseError {
     String errorMessage
 
     @Override
-    public String toString() {
+    String toString() {
         return "CurseError{" +
                "errorCode=" + errorCode +
                ", errorMessage='" + errorMessage + '\'' +

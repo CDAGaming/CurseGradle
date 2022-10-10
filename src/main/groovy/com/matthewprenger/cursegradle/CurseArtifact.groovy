@@ -1,6 +1,7 @@
 package com.matthewprenger.cursegradle
 
 import com.google.gson.annotations.SerializedName
+import org.gradle.api.Action
 import org.gradle.api.Project
 
 import javax.annotation.Nullable
@@ -67,9 +68,9 @@ class CurseArtifact implements Serializable {
     @SerializedName("relations")
     CurseRelation curseRelations
 
-    void relations(@DelegatesTo(CurseRelation)Closure<?> configClosure) {
+    void relations(Action<CurseRelation> configClosure) {
         CurseRelation relation = new CurseRelation()
-        relation.with(configClosure)
+        configClosure.execute(relation)
         curseRelations = relation
     }
 
@@ -100,7 +101,7 @@ class CurseArtifact implements Serializable {
     }
 
     @Override
-    public String toString() {
+    String toString() {
         return "CurseArtifact{" +
                 "artifact=" + artifact +
                 ", changelogType=" + changelogType +

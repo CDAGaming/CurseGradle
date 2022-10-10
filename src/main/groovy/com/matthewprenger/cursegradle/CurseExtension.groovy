@@ -1,5 +1,6 @@
 package com.matthewprenger.cursegradle
 
+import org.gradle.api.Action
 import org.gradle.api.Project
 
 class CurseExtension {
@@ -32,16 +33,16 @@ class CurseExtension {
      *
      * @param configClosure The configuration closure
      */
-    void project(@DelegatesTo(CurseProject) Closure<?> configClosure) {
+    void project(Action<CurseProject> configClosure) {
         CurseProject curseProject = new CurseProject()
-        curseProject.with(configClosure)
+        configClosure.execute(curseProject)
         if (curseProject.apiKey == null) {
             curseProject.apiKey = this.apiKey
         }
         curseProjects.add(curseProject)
     }
 
-    void options(Closure<?> configClosure) {
-        curseGradleOptions.with(configClosure)
+    void options(Action<Options> configClosure) {
+        configClosure.execute(curseGradleOptions)
     }
 }
