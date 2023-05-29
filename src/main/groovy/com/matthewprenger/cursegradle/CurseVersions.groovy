@@ -38,7 +38,7 @@ class CurseVersions {
             VersionType[] types = Util.gson.fromJson(versionTypesJson, VersionType[].class)
             types.each { type ->
                 if (
-                        (type.slug.startsWith('minecraft') || type.slug == 'java' || type.slug == 'modloader') ||
+                        (type.slug.startsWith('minecraft') || type.slug == 'java' || type.slug == 'environment' || type.slug == 'modloader') ||
                         (curseGradleOptions.bukkitIntegration && type.slug == 'bukkit') ||
                         (curseGradleOptions.genericIntegration && type.slug == 'game')
                 ) {

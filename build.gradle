@@ -12,7 +12,7 @@ ext {
     url = 'https://github.com/CDAGaming/CurseGradle'
 }
 
-version = '1.6.0'
+version = '1.6.1'
 group = 'io.github.CDAGaming'
 description = '(Updated Fork) Gradle plugin to upload artifacts to CurseForge'
 archivesBaseName = 'CurseGradle'
